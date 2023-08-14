@@ -4,10 +4,7 @@ namespace Inc\Public;
 
 class AuthorBookRelation {
 
-    public function __construct() {
-        add_filter( 'acf/update_value/name=book_authors', [ $this, 'update_book_authors' ], 10, 2 );
-        add_filter( 'acf/update_value/name=author_books', [ $this, 'update_author_books' ], 10, 2 );
-    }
+    public function __construct() {}
 
     // Update players for a specific team
     function update_book_authors( $players, $team_id ) {

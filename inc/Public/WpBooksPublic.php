@@ -28,8 +28,19 @@ namespace Inc\Public;
 use Inc\Normalize;
 
 use Inc\Public\AuthorBookRelation;
+use Inc\Loader;
 
 class WpBooksPublic {
+
+    /**
+	 * The loader that's responsible for maintaining and registering all hooks that power
+	 * the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      Loader    $loader    Maintains and registers all hooks for the plugin.
+	 */
+	protected $loader;
     
     /**
 	 * The unique identifier of this theme
@@ -80,10 +91,11 @@ class WpBooksPublic {
      * @param string $theme_name nombre o identificador único de éste plugin.
      * @param string $version La versión actual del plugin.
      */
-    public function __construct( $theme_name, $version, $text_domain ) {
+    public function __construct( $theme_name, $version, $text_domain, $loader ) {
         $this->theme_name = $theme_name;
         $this->version = $version;
         $this->text_domain = $text_domain;
+        $this->loader = $loader;
         $this->normalize = new Normalize();
     }
     
@@ -137,6 +149,8 @@ class WpBooksPublic {
      * @access   public
 	 */
     public function many_to_many_acf_relations() {
-        new AuthorBookRelation();
+        $author_relation = new AuthorBookRelation();
+        $this->loader->add_filter( 'acf/update_value/name=book_authors', $author_relation, 'update_book_authors' , 10, 2 );
+        $this->loader->add_filter( 'acf/update_value/name=author_books', $author_relation, 'update_author_books' , 10, 2 );        
     }
 }

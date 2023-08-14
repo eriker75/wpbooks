@@ -1,0 +1,20 @@
+{
+    "name": "eribert/wpbooks",
+    "description": "Wordpress theme to admin books and authors",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Inc\\": "./inc"
+        }
+    },
+    "authors": [
+        {
+            "name": "eribert"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "wp-cli/wp-cli-bundle": "*"
+    }
+}

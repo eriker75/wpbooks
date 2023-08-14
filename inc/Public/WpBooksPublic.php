@@ -27,6 +27,8 @@ namespace Inc\Public;
 
 use Inc\Normalize;
 
+use Inc\Public\AuthorBookRelation;
+
 class WpBooksPublic {
     
     /**
@@ -134,7 +136,7 @@ class WpBooksPublic {
 	 * @since    1.0.0
      * @access   public
 	 */
-    public function register_acf_fields() {
-
+    public function many_to_many_acf_relations() {
+        new AuthorBookRelation();
     }
 }

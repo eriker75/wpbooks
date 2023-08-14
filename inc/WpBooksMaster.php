@@ -182,7 +182,13 @@ class WpBooksMaster {
 			'featured-content' => array(),
 			'menus' => array(),
 			'post-formats' => array(),
-			'post-thumbnails' => array( 'post', 'page', 'book', 'review', 'author' ) ,
+			'post-thumbnails' => array( 
+									'post',
+									'page',
+									'review',
+									'author' 
+									//'book', // Instead of feature image we're gonna use a acf field
+								),
 			'responsive-embeds' => array(),
 			'title-tag' => array(),
 			'wp-block-styles' => array(),
@@ -208,7 +214,7 @@ class WpBooksMaster {
 		** Custom Post Type for books
 		*/
 		$custom_post_types->add_post_type(
-			'book',
+			'books',
 			'Book',
 			'Books', 
 			array(
@@ -222,23 +228,23 @@ class WpBooksMaster {
 		/** 
 		** Custom Post Type for Reviews
 		*/
-		$custom_post_types->add_post_type(
-			'review',
-			'Review',
-			'Reviews', 
+		/* $custom_post_types->add_post_type(
+			'opinion',
+			'Opinion',
+			'Opinions', 
 			array(
 				'menu_icon'   => 'dashicons-testimonial',
 				'supports'    => array( 'title', 'thumbnail', 'editor' ),
 				'has_archive' => true,
 				'taxonomies' => array()
 			)
-		);
+		); */
 
 		/** 
 		** Custom Post Type for Authors
 		*/
 		$custom_post_types->add_post_type(
-			'author',
+			'authors',
 			'Author',
 			'Authors', 
 			array(
@@ -268,7 +274,7 @@ class WpBooksMaster {
 			'Genre',
 			'Genres',
 			true,
-			array('book'),
+			array('books'),
 			'This is a custum Genre for Books',
 			true,
 			true
@@ -312,6 +318,8 @@ class WpBooksMaster {
 		// Adding hooks to public side of wordpress
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+	
+		$plugin_public->many_to_many_acf_relations();
 	}
 
 	/**

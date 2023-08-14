@@ -5,12 +5,6 @@ namespace Inc\Public\WpQuery;
 class Books {
     
     public function __construct() {
-        // Create the custom post type
-        $this->create_post_type();
-
-        // Create the custom taxonomy
-        $this->create_taxonomy();
-
         // Add the ACF field group
         $this->add_acf_field_group();
     }
@@ -179,31 +173,6 @@ class Books {
         }
 
         return $reviews;
-    }
-
-    private function create_post_type() {
-        // Register the custom post type
-        register_post_type('books', [
-            'labels' => [
-                'name' => 'Books',
-                'singular_name' => 'Book',
-            ],
-            'public' => true,
-            'has_archive' => true,
-            'supports' => ['title', 'editor', 'excerpt', 'thumbnail'],
-        ]);
-    }
-
-    private function create_taxonomy() {
-        // Register the custom taxonomy
-        register_taxonomy('genres', 'books', [
-            'labels' => [
-                'name' => 'Genres',
-                'singular_name' => 'Genre',
-            ],
-            'public' => true,
-            'hierarchical' => true,
-        ]);
     }
 
     private function add_acf_field_group() {

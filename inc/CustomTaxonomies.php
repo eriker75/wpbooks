@@ -13,10 +13,10 @@ class CustomTaxonomies {
 
     private $custom_taxonomies;
 
-    private $text_domain;
+	private $text_domain;
     
     private function __construct($text_domain) {
-        $this->text_domain = $text_domain;
+        $this->text_domain =  defined(WPBOOKS_TEXT_DOMAIN) ? WPBOOKS_TEXT_DOMAIN : '';
     }
 
     /**
@@ -28,7 +28,6 @@ class CustomTaxonomies {
         if (self::$instance === null) {
             self::$instance = new self($text_domain);
         }
-
         return self::$instance;
     }
 
@@ -64,7 +63,7 @@ class CustomTaxonomies {
 		), $overrides );
 	}
 
-    public function add_taxonomy(
+    private function add_taxonomy(
         string $name,
         string $slug,
         string $singular,
@@ -95,9 +94,27 @@ class CustomTaxonomies {
     * Registers all the custom taxonomies for the theme.
     * @return null
     */
-	public function register_taxonomies() {
+	private function register_taxonomies() {
 		foreach( $this->custom_taxonomies as $taxonomy_key => $taxonomy_data ) {
 			register_taxonomy( $taxonomy_key, $taxonomy_data['post_types'], $taxonomy_data['args'] );
 		}
+	}
+
+	public function register_all_taxonomies() {
+
+		/**
+		 * Book genres taxonomy
+		 */
+		$this->add_taxonomy(
+			'genres',
+			'genres',
+			'Genre',
+			'Genres',
+			true,
+			array('books'),
+			'This is a custum Genre for Books',
+			true,
+			true
+		);
 	}
 }

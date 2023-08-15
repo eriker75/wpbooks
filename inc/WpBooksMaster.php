@@ -186,7 +186,7 @@ class WpBooksMaster {
 									'post',
 									'page',
 									'review',
-									'author' 
+									//'author'// Instead of feature image we're gonna use a acf field 
 									//'book', // Instead of feature image we're gonna use a acf field
 								),
 			'responsive-embeds' => array(),
@@ -208,55 +208,10 @@ class WpBooksMaster {
 	 * @access   private
 	 */
 	private function add_custom_cpts() {
-		$custom_post_types = CustomPostTypes::get_instance($this->get_text_domain());
-
-		/** 
-		** Custom Post Type for books
-		*/
-		$custom_post_types->add_post_type(
-			'books',
-			'Book',
-			'Books', 
-			array(
-				'menu_icon'   => 'dashicons-book',
-				'supports'    => array( 'title', 'thumbnail', 'editor' ),
-				'has_archive' => true,
-				'taxonomies' => array( 'book_genres' )
-			)
-		);
-
-		/** 
-		** Custom Post Type for Reviews
-		*/
-		/* $custom_post_types->add_post_type(
-			'opinion',
-			'Opinion',
-			'Opinions', 
-			array(
-				'menu_icon'   => 'dashicons-testimonial',
-				'supports'    => array( 'title', 'thumbnail', 'editor' ),
-				'has_archive' => true,
-				'taxonomies' => array()
-			)
-		); */
-
-		/** 
-		** Custom Post Type for Authors
-		*/
-		$custom_post_types->add_post_type(
-			'authors',
-			'Author',
-			'Authors', 
-			array(
-				'menu_icon'   => "/wp-content/themes/$this->theme_name-theme/inc/assets/admin/img/cpt/writer.svg",
-				'supports'    => array( 'title', 'thumbnail', 'editor' ),
-				'has_archive' => true,
-				'taxonomies' => array()
-			)
-		);
-		
+		// Custom post types instance generator
+		$custom_post_types = CustomPostTypes::get_instance();
 		// Adding hooks to administration side of wordpress
-		$this->loader->add_action( 'init', $custom_post_types, 'register_post_types' , 10);
+		$this->loader->add_action( 'init', $custom_post_types, 'register_all_post_types' , 10);
 	}
 
 	/**
@@ -266,22 +221,11 @@ class WpBooksMaster {
 	 * @access   private
 	 */
 	private function add_taxonomies() {
+		// Custom taxonomy instance generator
 		$custom_taxonomies = CustomTaxonomies::get_instance($this->get_text_domain());
 
-		$custom_taxonomies->add_taxonomy(
-			'book_genres',
-			'book-genres',
-			'Genre',
-			'Genres',
-			true,
-			array('books'),
-			'This is a custum Genre for Books',
-			true,
-			true
-		);
-
 		// Adding hooks to administration side of wordpress
-		$this->loader->add_action( 'init', $custom_taxonomies, 'register_taxonomies' , 10);
+		$this->loader->add_action( 'init', $custom_taxonomies, 'register_all_taxonomies' , 10);
 	}
 
 	/**

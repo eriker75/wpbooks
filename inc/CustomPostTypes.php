@@ -35,14 +35,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class CustomPostTypes {
 
+	/**
+     * instance variable .
+     *
+     * @var CustomPostTypes The singleton instance of this class.
+     */
 	private static $instance;
 
-	private $text_domain;
-
+	/**
+	 * Array with all available custom post types
+	 *
+	 * @var array CustomPostType;
+	 */
 	private $custom_post_types;
 
-	private function __construct($text_domain) {
-		$this->text_domain = $text_domain;
+
+	/**
+	 * Theme text domain
+	 *
+	 * @var string Theme text domain
+	 */
+	private $text_domain;
+
+	private function __construct() {
+		$this->text_domain = defined(WPBOOKS_TEXT_DOMAIN) ? WPBOOKS_TEXT_DOMAIN : '';
 	}
 
 	/**
@@ -50,11 +66,10 @@ class CustomPostTypes {
      *
      * @return CustomPostTypes The single instance of this class.
      */
-    public static function get_instance($text_domain) {
+    public static function get_instance() {
         if (self::$instance === null) {
-            self::$instance = new self($text_domain);
+            self::$instance = new self();
         }
-
         return self::$instance;
     }
 
@@ -135,7 +150,7 @@ class CustomPostTypes {
 	 * @param  array  $labels   Custom labels for new post type.
 	 * @return null
 	 */
-	public function add_post_type($key, $singular, $plural, $args) {
+	private function add_post_type($key, $singular, $plural, $args) {
 		/** 
 		 * *Custom Post Type for Partners
 		*/
@@ -147,7 +162,7 @@ class CustomPostTypes {
 		);
 	}
 
-	public function register_post_types() {
+	private function register_post_types() {
 		foreach( $this->custom_post_types as $custom_post_type ) {
 			$args = shortcode_atts( array(
 				'key'      => 'custom_post_type',
@@ -158,5 +173,37 @@ class CustomPostTypes {
 			), $custom_post_type );
 			$this->init_post_type( $args['key'], $args['singular'], $args['plural'], $args['args'], $args['labels'] );
 		}
+	}
+
+	public function register_all_post_types() {
+		/** 
+		** Custom Post Type for books
+		*/
+		$custom_post_types->add_post_type(
+			'books',
+			'Book',
+			'Books', 
+			array(
+				'menu_icon'   => 'dashicons-book',
+				'supports'    => array( 'title', 'thumbnail', 'editor' ),
+				'has_archive' => true,
+				'taxonomies' => array( 'genres' )
+			)
+		);
+
+		/** 
+		** Custom Post Type for Authors
+		*/
+		$custom_post_types->add_post_type(
+			'authors',
+			'Author',
+			'Authors', 
+			array(
+				'menu_icon'   => "/wp-content/themes/$this->theme_name-theme/inc/assets/admin/img/cpt/writer.svg",
+				'supports'    => array( 'title', 'thumbnail', 'editor' ),
+				'has_archive' => true,
+				'taxonomies' => array()
+			)
+		);
 	}
 }

@@ -248,7 +248,7 @@ class WpBooksMaster {
 			'Author',
 			'Authors', 
 			array(
-				'menu_icon'   => '/wp-content/themes/wpbooks/inc/assets/admin/img/cpt/writer.svg',
+				'menu_icon'   => "/wp-content/themes/$this->theme_name-theme/inc/assets/admin/img/cpt/writer.svg",
 				'supports'    => array( 'title', 'thumbnail', 'editor' ),
 				'has_archive' => true,
 				'taxonomies' => array()
@@ -321,6 +321,7 @@ class WpBooksMaster {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 	
 		$plugin_public->many_to_many_acf_relations();
+		$plugin_public->register_acf_blocks();
 	}
 
 	/**

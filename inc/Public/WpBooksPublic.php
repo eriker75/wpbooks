@@ -29,6 +29,7 @@ use Inc\Normalize;
 
 use Inc\Public\AuthorBookRelation;
 use Inc\Loader;
+use Inc\Public\Acf\AcfLoader;
 
 class WpBooksPublic {
 
@@ -119,6 +120,10 @@ class WpBooksPublic {
         
 		wp_enqueue_style( $this->theme_name . '-main-styles', WPBOOKS_DIR_URI . 'inc/assets/public/css/wpbooks-public.css', array(), $this->version, 'all' );
         
+
+        // Vendor styles
+        wp_enqueue_style( $this->theme_name . '-normalize', WPBOOKS_DIR_URI . 'inc/assets/public/vendor/normalize.css', array(), $this->version, 'all' );
+        wp_enqueue_style( $this->theme_name . '-bootstrap', WPBOOKS_DIR_URI . 'inc/assets/public/vendor/bootstrap/css/bootstrap.min.css', array(), $this->version, 'all' );
     }
     
     /**
@@ -140,6 +145,10 @@ class WpBooksPublic {
 		 */        
         
         wp_enqueue_script( $this->theme_name . '-main-script', WPBOOKS_DIR_URI . 'inc/assets/public/js/wpbooks-public.js', array( 'jquery' ), $this->version, true );
+
+
+
+        wp_enqueue_script( $this->theme_name . '-bootstrap-script', WPBOOKS_DIR_URI . 'inc/assets/public/vendor/bootstrap/js/bootstrap.min.js', array( 'jquery' ), $this->version, true );
     }
 
     /**
@@ -150,7 +159,12 @@ class WpBooksPublic {
 	 */
     public function many_to_many_acf_relations() {
         $author_relation = new AuthorBookRelation();
-        $this->loader->add_filter( 'acf/update_value/name=book_authors', $author_relation, 'update_book_authors' , 10, 2 );
-        $this->loader->add_filter( 'acf/update_value/name=author_books', $author_relation, 'update_author_books' , 10, 2 );        
+        $this->loader->add_filter('acf/update_value/name=book_authors', $author_relation, 'update_book_authors' , 10, 2 );
+        $this->loader->add_filter('acf/update_value/name=author_books', $author_relation, 'update_author_books' , 10, 2 );        
+    }
+
+    public function register_acf_blocks(){
+        $acf_loader = new AcfLoader();
+        $this->loader->add_action('acf/init', $acf_loader, 'register_all_blocks');
     }
 }

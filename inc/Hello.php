@@ -5,6 +5,6 @@ namespace Inc;
 class Hello{
 
     public function __construct() {
-        echo '<h1>HOLA MUNDO</h1>';
+        echo '<h2>HOLA MUNDO</h2>';
     }
 }

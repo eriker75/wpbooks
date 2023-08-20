@@ -222,7 +222,7 @@ class WpBooksMaster {
 	 */
 	private function add_taxonomies() {
 		// Custom taxonomy instance generator
-		$custom_taxonomies = CustomTaxonomies::get_instance($this->get_text_domain());
+		$custom_taxonomies = CustomTaxonomies::get_instance();
 
 		// Adding hooks to administration side of wordpress
 		$this->loader->add_action( 'init', $custom_taxonomies, 'register_all_taxonomies' , 10);

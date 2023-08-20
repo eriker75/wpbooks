@@ -179,7 +179,7 @@ class CustomPostTypes {
 		/** 
 		** Custom Post Type for books
 		*/
-		$custom_post_types->add_post_type(
+		$this->add_post_type(
 			'books',
 			'Book',
 			'Books', 
@@ -194,16 +194,19 @@ class CustomPostTypes {
 		/** 
 		** Custom Post Type for Authors
 		*/
-		$custom_post_types->add_post_type(
+		$this->add_post_type(
 			'authors',
 			'Author',
 			'Authors', 
 			array(
-				'menu_icon'   => "/wp-content/themes/$this->theme_name-theme/inc/assets/admin/img/cpt/writer.svg",
+				'menu_icon'   => "/wp-content/themes/".WPBOOKS_THEME_NAME."-theme/inc/assets/admin/img/cpt/writer.svg",
 				'supports'    => array( 'title', 'thumbnail', 'editor' ),
 				'has_archive' => true,
 				'taxonomies' => array()
 			)
 		);
+
+		// Add post types
+		$this->register_post_types();
 	}
 }

@@ -34,16 +34,16 @@ class WpBooksAdmin {
     private $version;
     
     /**
-	 * Objeto BCT_Normalize
+	 * Objeto WpBooksNormalize
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      object    $normalize Instancia del objeto BCT_Normalize
+	 * @var      object    $normalize Instancia del objeto WpBooksNormalize
 	 */
     private $normalize;
     
     /**
-	 * Objeto BCT_Helpers
+	 * Objeto WpBooksHelpers
 	 *
 	 * @since    1.0.0
 	 * @access   private
@@ -72,10 +72,10 @@ class WpBooksAdmin {
         
         /**
          * Una instancia de esta clase debe pasar a la función run()
-         * definido en BCT_Cargador como todos los ganchos se definen
+         * definido en WpBooksCargador como todos los ganchos se definen
          * en esa clase particular.
          *
-         * El BCT_Cargador creará la relación
+         * El WpBooksCargador creará la relación
          * entre los ganchos definidos y las funciones definidas en este
          * clase.
 		 */
@@ -94,10 +94,10 @@ class WpBooksAdmin {
         
         /**
          * Una instancia de esta clase debe pasar a la función run()
-         * definido en BCT_Cargador como todos los ganchos se definen
+         * definido en WpBooksCargador como todos los ganchos se definen
          * en esa clase particular.
          *
-         * El BCT_Cargador creará la relación
+         * El WpBooksCargador creará la relación
          * entre los ganchos definidos y las funciones definidas en este
          * clase.
 		 */        

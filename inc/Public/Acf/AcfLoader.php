@@ -69,15 +69,5 @@ class AcfLoader {
             'BookCard/book-card',
             'BookCard/book-card'
         );
-
-        $this->register_block(
-            'book-grid',
-            'Book Grid',
-            'A simple container for multiple Books',
-            'book-alt',
-            'BookGrid/BookGrid',
-            'BookGrid/book-grid',
-            'BookGrid/book-grid',
-        );
     }
 }

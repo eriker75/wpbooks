@@ -11,6 +11,7 @@ $wpbooks_dir_uri  = ( substr( get_template_directory_uri(), -1 ) === '/' ) ? get
 define( 'WPBOOKS_DIR_PATH', $wpbooks_dir_path );
 define( 'WPBOOKS_DIR_URI',  $wpbooks_dir_uri  );
 define( 'WPBOOKS_TEXT_DOMAIN', 'wpbooks');
+define( 'WPBOOKS_THEME_NAME', 'wpbooks');
 
 // Require once the Composer Autoload
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {

@@ -15,7 +15,7 @@ class CustomTaxonomies {
 
 	private $text_domain;
     
-    private function __construct($text_domain) {
+    private function __construct() {
         $this->text_domain =  defined(WPBOOKS_TEXT_DOMAIN) ? WPBOOKS_TEXT_DOMAIN : '';
     }
 
@@ -24,9 +24,9 @@ class CustomTaxonomies {
      *
      * @return CustomTaxonomies The single instance of this class.
      */
-    public static function get_instance($text_domain) {
+    public static function get_instance() {
         if (self::$instance === null) {
-            self::$instance = new self($text_domain);
+            self::$instance = new self();
         }
         return self::$instance;
     }
@@ -116,5 +116,7 @@ class CustomTaxonomies {
 			true,
 			true
 		);
+
+		$this->register_taxonomies();
 	}
 }
